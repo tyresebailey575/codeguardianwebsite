@@ -8,6 +8,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
+    <script type="text/javascript"
+  src="https://cdn.emailjs.com/dist/email.min.js">
+</script>
+<script type="text/javascript">
+   (function(){
+       emailjs.init("B2e-Wrus3KSsEuQDQ");
+   })();
+</script>
+
 <body>
     <!-- Navigation -->
     <nav class="navbar">
@@ -209,8 +218,7 @@
                         </div>
                     </div>
                 </div>
-                <form class="contact-form" name="contact" netlify>
-                    <input type="hidden" name="form-name" value="contact">
+                <form id="contact-form" class="contact-form" name="contact">
                     <div class="form-group">
                         <input type="text" id="name" name="name" placeholder="Your Name" required>
                     </div>
@@ -263,8 +271,30 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+  // Wait for the DOM to load
+  document.addEventListener("DOMContentLoaded", function() {
+    const contactForm = document.getElementById("contact-form");
+
+    contactForm.addEventListener("submit", function(event) {
+      event.preventDefault(); // prevent default form submission
+
+      // Send the form using EmailJS
+      emailjs.sendForm('service_lkxv192', 'template_2j283ok', this)
+        .then(function(response) {
+          console.log('SUCCESS!', response.status, response.text);
+          alert("Thank you! Your message has been sent.");
+          contactForm.reset(); // clear form fields
+        }, function(error) {
+          console.log('FAILED...', error);
+          alert("Oops! Something went wrong. Please try again.");
+        });
+    });
+  });
+</script>
 </body>
 </html>
+
 
 
 
